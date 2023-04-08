@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+    Movie
+{% endblock title %}
+{% block others %}
+    <script src="https://unpkg.com/ionicons@5.4.0/dist/ionicons.js"></script>
+    <style>
+        .player::-webkit-progress-bar{
+            color: red;
+        }
+    </style>
+{% endblock others %}
+{% block content %}
+    {% include 'partials/navbar.html' %}
+    <main class='bg-primary_black h-full w-full '>
+        {{movie|json_script:'movie_data'}}
+        <video src="" controls class="w-full h-screen player"></video>
+        
+    </main>
+    <script>
+        const videoele = document.querySelector('video')
+        const movieData = JSON.parse(document.getElementById('movie_data').textContent)
+        const url = new URL(location.href)
+        videoele.setAttribute('src',`http://localhost:8000/media/${movieData[0].file}`)
+    </script>
+{% endblock content %}
